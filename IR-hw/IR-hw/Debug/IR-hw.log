@@ -1,0 +1,78 @@
+﻿Build started 3/15/2015 10:17:59 AM.
+     1>Project "D:\Google Drive\APCS\SecondYear\CS419\Homeworks\IR-hw\IR-hw\IR-hw.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "..\..\IR-HW4\IR-hw4.cpp"
+         IR-hw4.cpp
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\string_processing.h(7): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\string_processing.h(16): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\stop_words.h(9): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\stop_words.h(12): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\document_initialize.h(11): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\document_initialize.h(22): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\document_initialize.h(26): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\document_initialize.h(30): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\document_initialize.h(39): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\document_initialize.h(44): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\document_initialize.h(45): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\document_initialize.h(49): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\document_initialize.h(52): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\query_building.h(20): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\query_building.h(23): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\query_building.h(26): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\query_building.h(52): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\bsbi_index_construction.h(40): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\bsbi_index_construction.h(41): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\bsbi_index_construction.h(58): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\bsbi_index_construction.h(63): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\spimi_index_construction.h(31): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\spimi_index_construction.h(45): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\spimi_index_construction.h(46): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\spimi_index_construction.h(73): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\spimi_index_construction.h(80): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\ir-hw4.cpp(38): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\ir-hw4.cpp(60): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\ir-hw4.cpp(99): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\ir-hw4.cpp(102): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\ir-hw4.cpp(125): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\ir-hw4.cpp(88): warning C4101: 'distance' : unreferenced local variable
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\ir-hw4.cpp(170): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\ir-hw4.cpp(171): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\ir-hw4.cpp(174): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\google drive\apcs\secondyear\cs419\homeworks\ir-hw4\ir-hw4.cpp(200): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(226) : see declaration of 'freopen'
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Google Drive\APCS\SecondYear\CS419\Homeworks\IR-hw\Debug\IR-hw.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Google Drive\APCS\SecondYear\CS419\Homeworks\IR-hw\Debug\IR-hw.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Google Drive\APCS\SecondYear\CS419\Homeworks\IR-hw\Debug\IR-hw.lib" /MACHINE:X86 "Debug\IR-hw4.obj"
+         IR-hw.vcxproj -> D:\Google Drive\APCS\SecondYear\CS419\Homeworks\IR-hw\Debug\IR-hw.exe
+     1>Done Building Project "D:\Google Drive\APCS\SecondYear\CS419\Homeworks\IR-hw\IR-hw\IR-hw.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.67
