@@ -49,7 +49,6 @@ vector < pair <double, int> > query(vector<string> terms) {
 	memset(deno, 0, sizeof deno);
 
 	// Load Query
-
 	int freq[maximum_of_terms];
 	memset(freq, 0, sizeof freq);
 
@@ -197,36 +196,47 @@ void proc_all_queries(string query_path, string groundtruth_path) {
 
 int main() {
 
-	cerr << "Initializing Stop words" << endl;
+	long long startTime = clock();
+
+	cerr << "Initializing Stop words";
 	//init_stop_words();
+	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
-	cerr << "Parsing RAW file" << endl;
+	cerr << "Parsing RAW file";
 	parse_to_RAW_file({"Data\\t9.filtering\\ohsu-trec\\trec9-train\\ohsumed.87"}, "Data\\RAW.bin");
+	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
-	cerr << "Saving dictionary file" << endl;
+	cerr << "Saving dictionary file";
 	init_dictionary_file();
+	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
-	cerr << "Loading dictionary file" << endl;
+	cerr << "Loading dictionary file";
 	load_dictionary_file();
+	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
-	cerr << "Building inverted index" << endl;
+	cerr << "Building inverted index";
 	bsbi.index_construction();
+	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
-	cerr << "Loading terms' offset" << endl;
+	cerr << "Loading terms' offset";
 	load_index_offset();
+	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
-	cerr << "Pre-calculating term idf" << endl;
+	cerr << "Pre-calculating term idf";
 	calc_term_idf();
+	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
-	cerr << "Answer oshu queries" << endl;
+	cerr << "Answer oshu queries";
 	//Oshu
 	proc_all_queries("Data\\t9.filtering\\ohsu-trec\\trec9-train\\query.ohsu.1-63", 
 					 "Data\\t9.filtering\\ohsu-trec\\trec9-train\\qrels.ohsu.batch.87");
+	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
-	cerr << "Answer mesh queries" << endl;
+	cerr << "Answer mesh queries";
 	//MeSH
 	proc_all_queries("Data\\t9.filtering\\ohsu-trec\\trec9-train\\query.mesh.1-4904",
 					 "Data\\t9.filtering\\ohsu-trec\\trec9-train\\qrels.mesh.batch.87");
+	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
 	cerr << "Done\nPlease use matlab/octave to run plot_precision_recall and plot_f_measure" << endl;
 

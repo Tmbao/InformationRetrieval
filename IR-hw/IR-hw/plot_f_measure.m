@@ -13,11 +13,11 @@ for idx=1:numel(F_names)
     id_figure = id_figure + 1;
     
 	A = load(fullfile('Data\\result_F', F_name));
-    recall = A(1:end, 1);
-    Fecision = A(1:end, 2);
+    n_predict = A(1:end, 1);
+    f_measure = A(1:end, 2);
 
     fig = figure('visible', 'off');
-	plot(recall, Fecision, 'Marker', '.');
+	plot(n_predict, f_measure, 'Marker', '.');
     title(F_name);
     xlabel('N');
     ylabel('F-measure');
