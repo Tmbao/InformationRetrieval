@@ -39,11 +39,11 @@ private:
 
 public:
 
-	void index_construction(int maximum_of_spaces = 200000) {
+	void index_construction(string raw_path = RAW_path, string sorted_path = SORTED_path, string index_path = INDEX_path, int maximum_of_spaces = 200000) {
 
 		// Sort Blocks
-		FILE *raw_file = fopen(RAW_path, "rb");
-		FILE *sorted_file = fopen(SORTED_path, "wb");
+		FILE *raw_file = fopen(raw_path.c_str(), "rb");
+		FILE *sorted_file = fopen(sorted_path.c_str(), "wb");
 
 		int n_spaces = 0;
 
@@ -70,14 +70,14 @@ public:
 
 		// Merge Blocks
 
-		FILE *index_file = fopen(INDEX_path, "wb");
+		FILE *index_file = fopen(index_path.c_str(), "wb");
 
 		int n_blocks = record_position.size() - 1;
 		blocks = new pair <FILE *, int>[n_blocks];
 
 
 		for (int block_id = 0; block_id < n_blocks; block_id++) {
-			blocks[block_id] = {fopen(SORTED_path, "rb"), (record_position[block_id + 1] - record_position[block_id]) / sizeof(ID)};
+			blocks[block_id] = {fopen(sorted_path.c_str(), "rb"), (record_position[block_id + 1] - record_position[block_id]) / sizeof(ID)};
 			fseek(blocks[block_id].first, record_position[block_id], SEEK_SET);
 		}
 

@@ -34,11 +34,11 @@ private:
 
 public:
 
-	void index_construction(int n_partitions = 10) {
+	void index_construction(string raw_path = RAW_path, string sorted_path = SORTED_path, string index_path = INDEX_path, int n_partitions = 10) {
 
 		// Partition and Sort
-		FILE *raw_file = fopen(RAW_path, "rb");
-		FILE *sorted_file = fopen(SORTED_path, "wb");
+		FILE *raw_file = fopen(raw_path.c_str(), "rb");
+		FILE *sorted_file = fopen(sorted_path.c_str(), "wb");
 
 		fseek(raw_file, 0, SEEK_END);
 		int file_size = ftell(raw_file);
@@ -55,12 +55,12 @@ public:
 		fclose(sorted_file);
 
 		// Merge Partitions
-		FILE *index_file = fopen(INDEX_path, "wb");
+		FILE *index_file = fopen(index_path.c_str(), "wb");
 
 		partitions = new pair <FILE *, int>[n_partitions];
 
 		for (int partition_id = 0, remain_tokens = n_tokens; partition_id < n_partitions; partition_id++) {
-			partitions[partition_id] = {fopen(SORTED_path, "rb"), min(remain_tokens, tokens_per_partition)};
+			partitions[partition_id] = {fopen(sorted_path.c_str(), "rb"), min(remain_tokens, tokens_per_partition)};
 			fseek(partitions[partition_id].first, partition_id * tokens_per_partition * sizeof(ID), SEEK_SET);
 			remain_tokens -= tokens_per_partition;
 		}

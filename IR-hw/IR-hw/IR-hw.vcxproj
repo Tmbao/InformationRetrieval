@@ -17,12 +17,13 @@
     <ClInclude Include="BSBI_index_construction.h" />
     <ClInclude Include="configure.h" />
     <ClInclude Include="dirent.h" />
+    <ClInclude Include="query_building.h" />
     <ClInclude Include="document_initialize.h" />
     <ClInclude Include="index.h" />
-    <ClInclude Include="query_building.h" />
     <ClInclude Include="SPIMI_index_construction.h" />
     <ClInclude Include="stop_words.h" />
     <ClInclude Include="string_processing.h" />
+    <ClInclude Include="topic.h" />
     <ClInclude Include="verification.h" />
   </ItemGroup>
   <ItemGroup>
