@@ -25,3 +25,4 @@ using namespace std;
 #define SORTED_path "Data\\SORTED.bin"
 
 const int maximum_of_terms = 400000;
+const double eps = 1e-6;

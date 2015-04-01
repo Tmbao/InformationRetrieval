@@ -58,6 +58,7 @@ namespace twenty_newsgroups {
 };
 
 namespace ohsu_trec {
+
 	int number_of_terms, number_of_documents;
 	map <string, int> dictionary;
 	map <int, int> doc_id;
@@ -90,13 +91,15 @@ namespace ohsu_trec {
 			dictionary[term] = id;
 		}
 		fscanf(dict_file, "%d\n", &number_of_documents);
+		doc_uid = vector <int>(number_of_documents);
 		for (int i = 0; i < number_of_documents; i++) {
 			int u_id, id;
 			fscanf(dict_file, "%d%d", &u_id, &id);
 			doc_id[u_id] = id;
-			doc_uid.push_back(u_id);
+			doc_uid[id] = u_id;
+			//doc_uid.push_back(u_id);
 		}
-		sort(doc_uid.begin(), doc_uid.end());
+		//sort(doc_uid.begin(), doc_uid.end());
 		fclose(dict_file);
 		
 	}
@@ -107,7 +110,7 @@ namespace ohsu_trec {
 		ID *ids;
 		vector<string> tokens;
 
-		tokens = split_tokens(tp.title);
+		tokens = split_tokens(tp.title, " .,;\"\r\t\n()[]{}&':?+-*/");
 		ids = new ID[tokens.size()];
 		for (int i = 0; i < tokens.size(); i++) {
 			if (stop_words.find(tokens[i]) != stop_words.end())
@@ -119,7 +122,7 @@ namespace ohsu_trec {
 		fwrite(ids, sizeof(ID), tokens.size(), raw_file);
 		delete ids;
 		
-		tokens = split_tokens(tp.abstract);
+		tokens = split_tokens(tp.abstract, " .,;\"\r\t\n()[]{}&':?+-*/");
 		ids = new ID[tokens.size()];
 		for (int i = 0; i < tokens.size(); i++) {
 			if (stop_words.find(tokens[i]) != stop_words.end())
@@ -131,7 +134,7 @@ namespace ohsu_trec {
 		fwrite(ids, sizeof(ID), tokens.size(), raw_file);
 		delete ids;
 
-		ids = new ID[tp.terms.size()];
+		/*ids = new ID[tp.terms.size()];
 		for (int i = 0; i < tp.terms.size(); i++) {
 			if (stop_words.find(tp.terms[i]) != stop_words.end())
 				continue;
@@ -140,7 +143,7 @@ namespace ohsu_trec {
 			ids[i] = ID(dictionary[tp.terms[i]], tp.u_id);
 		}
 		fwrite(ids, sizeof(ID), tp.terms.size(), raw_file);
-		delete ids;
+		delete ids;*/
 	}
 
 	void parse_to_RAW_file(vector <string> file_names, string raw_path) {
@@ -158,7 +161,7 @@ namespace ohsu_trec {
 				
 				vector<string> tags;
 				switch (c_term[1]) {
-				case 'I':
+				case 'I': // Sequential ID
 					if (tp != NULL) {
 						save_topic_to_RAW_file(raw_file, *tp);
 						delete tp;
@@ -168,11 +171,11 @@ namespace ohsu_trec {
 					tp = new topic(id);
 					break;
 
-				case 'U':					
+				case 'U': // Document ID			
 					fscanf(file, "%d\n", &tp->u_id);
 					break;
 
-				case 'M':
+				case 'M': // Mesh
 					fscanf(file, "\n");
 					fgets(c_term, 8192, file);
 					tags = split_tokens(c_term, ";.\n");
@@ -183,31 +186,31 @@ namespace ohsu_trec {
 					}
 					break;
 
-				case 'T':
+				case 'T': // Title
 					fscanf(file, "\n");
 					fgets(c_term, 8192, file);
 					tp->title = c_term;
 					break;
 
-				case 'P':
+				case 'P': // Publish
 					fscanf(file, "\n");
 					fgets(c_term, 8192, file);
 					tp->pub_type = c_term;
 					break;
 
-				case 'W':
+				case 'W': // Abstract
 					fscanf(file, "\n");
 					fgets(c_term, 8192, file);
 					tp->abstract = c_term;
 					break;
 
-				case 'A':
+				case 'A': // Author
 					fscanf(file, "\n");
 					fgets(c_term, 8192, file);
 					tp->author = c_term;
 					break;
 
-				case 'S':
+				case 'S': // Source
 					fscanf(file, "\n");
 					fgets(c_term, 8192, file);
 					tp->source = c_term;
@@ -226,5 +229,6 @@ namespace ohsu_trec {
 
 		fclose(raw_file);
 	}
+
 };
 

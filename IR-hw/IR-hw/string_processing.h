@@ -26,14 +26,13 @@ vector <string> split_tokens(string s) {
 	string cur = "";
 	for (int i = 0; i < s.length(); i++)
 		if (!isalpha(s[i])) {
-			if (!cur.empty()) {
-				ret.push_back(cur);
-				cur = "";
-			}
+			if (cur.length() > 1) 
+				ret.push_back(lower_case(cur));
+			cur = "";
 		} else 
 			cur = cur + s[i];
 	if (!cur.empty())
-		 ret.push_back(cur);
+		ret.push_back(lower_case(cur));
 	return ret;
 }
 
@@ -46,14 +45,13 @@ vector <string> split_tokens(string s, string delimiters) {
 	string cur = "";
 	for (int i = 0; i < s.length(); i++)
 		if (delims.find(s[i]) != delims.end()) {
-			if (!cur.empty()) {
-				ret.push_back(cur);
-				cur = "";
-			}
+			if (cur.length() > 1) 
+				ret.push_back(lower_case(cur));
+			cur = "";
 		}
 		else
 			cur = cur + s[i];
 	if (!cur.empty())
-		ret.push_back(cur);
+		ret.push_back(lower_case(cur));
 	return ret;
 }
