@@ -7,48 +7,95 @@
 #include "stop_words.h"
 
 namespace twenty_newsgroups {
-
+	int number_of_terms, number_of_documents;
 	map<string, int> dictionary;
+	vector <int> doc_id, doc_uid;
 
-	void parse_to_RAW_file(const vector <string> &file_names) {
-		int number_of_terms = 0;
-		FILE *raw_file = fopen(RAW_path, "wb");
+	void init_dictionary_file() {
+		FILE *dict_file = fopen(DICT_path, "w");
+
+		fprintf(dict_file, "%d %d\n", number_of_terms, number_of_documents);
+		for (auto it = dictionary.begin(); it != dictionary.end(); it++)
+			fprintf(dict_file, "%s %d\n", it->first.c_str(), it->second);
+
+		fclose(dict_file);
+	}
+
+	void load_dictionary_file() {
+		FILE *dict_file = fopen(DICT_path, "r");
+		
+		fscanf(dict_file, "%d%d", &number_of_terms, &number_of_documents);
+		dictionary.clear();
+		char c_term[2048];
+		int id;
+		for (int i = 0; i < number_of_terms; i++) {
+			fscanf(dict_file, "%s%d", c_term, &id);
+			dictionary[c_term] = id;
+		}
+
+		for (int i = 0; i < number_of_documents; i++) {
+			doc_id.push_back(i);
+			doc_uid.push_back(i);
+		}
+
+		fclose(dict_file);
+	}
+
+	vector <string> read_file(const string &file_name) {
+		vector <string> ret;
+		FILE *file = fopen(file_name.c_str(), "r");
+		char c_term[2048];
+
+		// Remove header
+		while (fscanf(file, "%[a-zA-Z]:", c_term))
+			fgets(c_term, 2048, file);
+
+		while (fscanf(file, "%s", c_term) != EOF) {
+			string term = c_term;
+
+			vector <string> s_terms = split_tokens(lower_case(term));
+			for (auto s_term : s_terms) {
+				if (s_term.length() == 0) continue;
+				if (stop_words.find(s_term) == stop_words.end()) 
+					ret.push_back(s_term);
+			}
+		}
+
+		fclose(file);
+
+		return ret;
+	}
+
+	void parse_to_RAW_file(const vector <string> &file_names, string raw_path) {
+		number_of_terms = 0;
+		number_of_documents = file_names.size();
+		FILE *raw_file = fopen(raw_path.c_str(), "wb");
 
 		char c_term[2048];
 		ID *ids = new ID[4194304];
 
 		for (int doc_id = 0; doc_id < file_names.size(); doc_id++) {
-			FILE *file = fopen(file_names[doc_id].c_str(), "r");
 			int n_id = 0;
+			vector <string> terms = read_file(file_names[doc_id]);
 
-			// Remove header
-			while (fscanf(file, "%[a-zA-Z]:", c_term))
-				fgets(c_term, 2048, file);
+			for (auto term : terms) {
+				if (term.length() == 0) continue;
 
-			while (fscanf(file, "%s", c_term) != EOF) {
-				string term = c_term;
+				if (stop_words.find(term) == stop_words.end()) {
+					if (dictionary.count(term) == 0)
+						dictionary[term] = number_of_terms++;
+					int term_id = dictionary[term];
 
-				vector <string> s_terms = split_tokens(lower_case(term));
-				for (auto s_term : s_terms) {
-					if (s_term.length() == 0) continue;
-
-					if (stop_words.find(s_term) == stop_words.end()) {
-						if (dictionary.count(s_term) == 0)
-							dictionary[s_term] = number_of_terms++;
-						int term_id = dictionary[s_term];
-
-						if (n_id == 4194304) {
-							fwrite(ids, sizeof(ID), n_id, raw_file);
-							n_id = 0;
-						}
-						ids[n_id++] = ID(term_id, doc_id);
+					if (n_id == 4194304) {
+						fwrite(ids, sizeof(ID), n_id, raw_file);
+						n_id = 0;
 					}
+					ids[n_id++] = ID(term_id, doc_id);
 				}
 			}
+			
 			if (n_id)
 				fwrite(ids, sizeof(ID), n_id, raw_file);
-
-			fclose(file);
 		}
 
 		delete ids;
@@ -231,4 +278,3 @@ namespace ohsu_trec {
 	}
 
 };
-

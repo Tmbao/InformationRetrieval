@@ -15,8 +15,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BSBI_index_construction.h" />
+    <ClInclude Include="category.h" />
+    <ClInclude Include="classifier.h" />
     <ClInclude Include="configure.h" />
     <ClInclude Include="dirent.h" />
+    <ClInclude Include="query.h" />
     <ClInclude Include="query_building.h" />
     <ClInclude Include="document_initialize.h" />
     <ClInclude Include="index.h" />

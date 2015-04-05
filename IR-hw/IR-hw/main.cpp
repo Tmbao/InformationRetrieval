@@ -7,332 +7,123 @@
 #include "query_building.h"
 #include "BSBI_index_construction.h"
 #include "SPIMI_index_construction.h"
+#include "query.h"
+#include "category.h"
+#include "classifier.h"
 
-using namespace ohsu_trec;
+using namespace twenty_newsgroups;
 
 BSBI bsbi;
 SPIMI spimi;
 
-int offset[maximum_of_terms];
-double idf[maximum_of_terms];
+vector <string> get_list_directory() {
+	vector <string> ret;
 
-void load_index_offset() {
-	int number_of_terms = dictionary.size();
-	memset(offset, -1, sizeof offset);
-
-	FILE *index_file = fopen(INDEX_path, "rb");
-	while (true) {
-		int fposition = ftell(index_file);
-
-		Index index;
-		if (!fread(&index, sizeof(Index), 1, index_file))
-			break;
-		if (offset[index.term_id] == -1)
-			offset[index.term_id] = fposition;
-		number_of_terms = index.term_id + 1;
+	DIR *pdir = opendir(TWENTYGRPS_directory);
+	dirent *entry;
+	while (entry = readdir(pdir)) {
+		if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0 && strcmp(entry->d_name, "desktop.ini") != 0)
+			ret.push_back(entry->d_name);
 	}
-	offset[number_of_terms] = ftell(index_file);
-
-	fclose(index_file);
+	closedir(pdir);
+	return ret;
 }
 
+vector <string> get_list_files(vector <string> directories) {
+	category cat;
+	vector <string> ret;
 
-void calc_term_idf() {
-	for (int i = 0; i < number_of_terms; i++)
-		idf[i] = 1 + log(number_of_documents / double((offset[i + 1] - offset[i]) / sizeof(Index)));
-}
+	for (auto directory : directories) {
+		string dir = string(TWENTYGRPS_directory) + "\\" + directory;
+		DIR *pdir = opendir(dir.c_str());
 
-double nume[maximum_of_terms], deno[maximum_of_terms], distance[maximum_of_terms];
+		dirent *entry;
+		while (entry = readdir(pdir)) {
+			if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0 && strcmp(entry->d_name, "desktop.ini") != 0) {
+				cat[ret.size()] = directory;
+				ret.push_back(dir + "\\" + string(entry->d_name));
+			}
+		}
 
-vector < pair <double, int> > feedback_rerank(vector < pair <double, int> > rank_list, vector <double> q_tfidf, int q_freq[maximum_of_terms], int n_docs = 5, double alpha = 0.6, double beta = 0.1, double gamma = 0.1) {
-	vector <int> rank(rank_list.size());
-
-	for (int i = 0; i < rank_list.size(); i++) 
-		rank[doc_id[rank_list[i].second]] = i;
-
-	memset(nume, 0, sizeof nume);
-	memset(deno, 0, sizeof deno);
-
-	vector <double> delta_tfidf(q_tfidf.size());
-	
-	// Re-calculate query tfidf
-	FILE *file = fopen(INDEX_path, "rb");
-	for (Index index; fread(&index, sizeof(Index), 1, file);) {
-		double tf = 0;
-		if (index.freq > 0) tf = 1 + log(index.freq);
-
-		if (rank[doc_id[index.doc_id]] < n_docs)
-			delta_tfidf[index.term_id] += beta * tf * idf[index.term_id];
-		else if (rank[doc_id[index.doc_id]] + 1 == rank_list.size())
-			delta_tfidf[index.term_id] -= gamma * tf * idf[index.term_id];
-	}
-	for (int i = 0; i < q_tfidf.size(); i++)
-		q_tfidf[i] = alpha * q_tfidf[i] + delta_tfidf[i];
-
-	fseek(file, 0, SEEK_SET);
-	for (Index index; fread(&index, sizeof(Index), 1, file);) {
-		double tf = 0;
-		if (index.freq > 0) tf = 1 + log(index.freq);
-
-		nume[doc_id[index.doc_id]] += tf * idf[index.term_id] * q_tfidf[index.term_id];
-		deno[doc_id[index.doc_id]] += sqr(tf * idf[index.term_id]);
+		closedir(pdir);
 	}
 
-	fclose(file);
-
-	for (int i = 0; i < number_of_documents; i++)
-		deno[i] = sqrt(deno[i]);
-
-	vector < pair <double, int> > ret;
-	for (int i = 0; i < number_of_documents; i++)
-		ret.push_back({ nume[i], doc_uid[i] });
-	sort(ret.rbegin(), ret.rend());
+	cat.save(CATEGORY_path);
 
 	return ret;
 }
 
-vector < pair <double, int> > local_analysis_rerank(vector < pair <double, int> > rank_list, vector <double> q_tfidf, int q_freq[maximum_of_terms], int n_docs = 5, int terms_p_doc = 100) {
-	map <int, int> local_id;
-	vector <int> original_id;
-	vector <int> rank(rank_list.size());
-
-	for (int i = 0; i < rank_list.size(); i++)
-		rank[doc_id[rank_list[i].second]] = i;
-	 
-	vector < vector < pair <double, int> > > freq(rank_list.size());
-
-	// Calculate frequency
-	FILE *file = fopen(INDEX_path, "rb");
-	for (Index index; fread(&index, sizeof(Index), 1, file);) {
-		if (rank[doc_id[index.doc_id]] < n_docs) {
-			freq[doc_id[index.doc_id]].push_back({ index.freq, index.term_id });
-		}
-	}
-
-	// Get the top frequency
-	for (int i = 0; i < freq.size(); i++) {
-		sort(freq[i].rbegin(), freq[i].rend());
-		while (freq[i].size() > terms_p_doc)
-			freq[i].pop_back();
-
-		for (int j = 0; j < freq[i].size(); j++) {
-			if (local_id.count(freq[i][j].second) == 0) {
-				local_id[freq[i][j].second] = local_id.size();
-				original_id.push_back(freq[i][j].second);
-			}
-		}
-	}
-
-	// Calculate association matrix
-	int n_terms = original_id.size();
-	vector < vector <double> > c(n_terms), s(n_terms);
-	for (int i = 0; i < n_terms; i++) {
-		c[i] = vector <double>(n_terms, 0);
-		s[i] = vector <double>(n_terms, 0);
-	}
-	for (int i = 0; i < freq.size(); i++) {
-		for (int j = 0; j < freq[i].size(); j++) {
-			for (int k = j; k < freq[i].size(); k++) 
-				c[local_id[freq[i][j].second]][local_id[freq[i][k].second]] += freq[i][j].first * freq[i][k].first;
-		}
-	}
-	for (int i = 0; i < n_terms; i++) {
-		for (int j = 0; j < n_terms; j++) {
-			if (abs(c[i][i] + c[j][j] - c[j][i]) < eps) 
-				s[i][j] = 0;
-			else 
-				s[i][j] = c[i][j] / (c[i][i] + c[j][j] - c[j][i]);
-		}
-
-		if (q_freq[original_id[i]] > 0) {
-			int chosen = i;
-			for (int j = 0; j < n_terms; j++) {
-				if ((s[i][j] > 0) && (q_freq[original_id[chosen]] != 0 || (q_freq[original_id[j]] == 0 && s[i][j] > s[i][chosen])))
-					chosen = j;
-			}
-
-			if (chosen != i && q_freq[original_id[chosen]] == 0) 
-				q_tfidf[original_id[chosen]] += idf[original_id[chosen]];
-		}
-	}
-
-	// Re-ranking
-	fseek(file, 0, SEEK_SET);
-	for (Index index; fread(&index, sizeof(Index), 1, file);) {
-		double tf = 0;
-		if (index.freq > 0) tf = 1 + log(index.freq);
-
-		nume[doc_id[index.doc_id]] += tf * idf[index.term_id] * q_tfidf[index.term_id];
-		deno[doc_id[index.doc_id]] += sqr(tf * idf[index.term_id]);
-	}
-
-	fclose(file);
-
-	for (int i = 0; i < number_of_documents; i++)
-		deno[i] = sqrt(deno[i]);
-
-	vector < pair <double, int> > ret;
-	for (int i = 0; i < number_of_documents; i++)
-		ret.push_back({ nume[i], doc_uid[i] });
-	sort(ret.rbegin(), ret.rend());
-
-	return ret;
-}
-
-bool is_intialize_global_analysis = false;
-map <int, int> gl_local_id;
-vector <int> gl_original_id;
-vector < vector <double> > gl_s;
-void global_analysis_initialize(int n_docs = 100, int terms_p_doc = 10) {
+void shuffle_list_files(vector <string> &files, int n_shuffle = 10000) {
+	category cat(CATEGORY_path);
 
 	srand(time(NULL));
+	for (int step = 0; step < n_shuffle; step++) {
+		int i = rand() % files.size();
+		int j = rand() % files.size();
 
-	vector <bool> chosen_docs(number_of_documents, false);
-	for (int i = 0; i <= n_docs; i++)
-		chosen_docs[rand() % chosen_docs.size()] = 1;
-
-	vector < vector < pair <double, int> > > freq(number_of_documents);
-
-	// Calculate frequency
-	FILE *file = fopen(INDEX_path, "rb");
-	for (Index index; fread(&index, sizeof(Index), 1, file);) {
-		if (chosen_docs[doc_id[index.doc_id]])
-			freq[doc_id[index.doc_id]].push_back({ index.freq, index.term_id });
-	}
-	fclose(file);
-
-	// Get the top frequency
-	for (int i = 0; i < freq.size(); i++) {
-		sort(freq[i].rbegin(), freq[i].rend());
-		while (freq[i].size() > terms_p_doc)
-			freq[i].pop_back();
-
-		for (int j = 0; j < freq[i].size(); j++) {
-			if (gl_local_id.count(freq[i][j].second) == 0) {
-				gl_local_id[freq[i][j].second] = gl_local_id.size();
-				gl_original_id.push_back(freq[i][j].second);
-			}
-		}
+		swap(cat[i], cat[j]);
+		swap(files[i], files[j]);
 	}
 
-	// Calculate association matrix
-	int n_terms = gl_original_id.size();
-	vector < vector <double> > c(n_terms);
-	gl_s = vector < vector<double> >(n_terms);
-	for (int i = 0; i < n_terms; i++) {
-		c[i] = vector <double>(n_terms, 0);
-		gl_s[i] = vector <double>(n_terms, 0);
-	}
-	for (int i = 0; i < freq.size(); i++) {
-		for (int j = 0; j < freq[i].size(); j++) {
-			for (int k = j; k < freq[i].size(); k++)
-				c[gl_local_id[freq[i][j].second]][gl_local_id[freq[i][k].second]] += freq[i][j].first * freq[i][k].first;
-		}
-	}
-	for (int i = 0; i < n_terms; i++) {
-		for (int j = 0; j < n_terms; j++) {
-			if (abs(c[i][i] + c[j][j] - c[j][i]) < eps)
-				gl_s[i][j] = 0;
-			else
-				gl_s[i][j] = c[i][j] / (c[i][i] + c[j][j] - c[j][i]);
-		}
-	}
+	cat.save(CATEGORY_path);
 }
 
-vector < pair <double, int> > global_analysis_rerank(vector < pair <double, int> > rank_list, vector <double> q_tfidf, int q_freq[maximum_of_terms], int n_docs = 5, int terms_p_doc = 100) {
-	
-	if (!is_intialize_global_analysis) {
-		global_analysis_initialize();
-		is_intialize_global_analysis = true;
+void init_queries(vector <string> &files, int n_queries = 5000) {
+	category cat(CATEGORY_path);
+
+	vector <string> queries;
+	for (int i = 1; i <= n_queries; i++) {
+		auto temp = cat[files.size() - 1];
+		queries.push_back(files.back());
+		cat.erase(cat.find(files.size() - 1));
+		cat[-i] = temp;
+		files.pop_back();
 	}
 
-	for (int i = 0; i < gl_s.size(); i++) {
-		if (q_freq[gl_original_id[i]] > 0) {
-			int chosen = i;
-			for (int j = 0; j < gl_s[i].size(); j++) {
-				if ((gl_s[i][j] > 0) && (q_freq[gl_original_id[chosen]] != 0 || (q_freq[gl_original_id[j]] == 0 && gl_s[i][j] > gl_s[i][chosen])))
-					chosen = j;
-			}
-
-			if (chosen != i && q_freq[gl_original_id[chosen]] == 0) 
-				q_tfidf[gl_original_id[chosen]] += idf[gl_original_id[chosen]];
-		}
-	}	
-
-	// Re-ranking
-	FILE *file = fopen(INDEX_path, "rb");
-	for (Index index; fread(&index, sizeof(Index), 1, file);) {
-		double tf = 0;
-		if (index.freq > 0) tf = 1 + log(index.freq);
-
-		nume[doc_id[index.doc_id]] += tf * idf[index.term_id] * q_tfidf[index.term_id];
-		deno[doc_id[index.doc_id]] += sqr(tf * idf[index.term_id]);
+	ofstream out_file(QUERIES_path);
+	for (int i = 0; i < queries.size(); i++) {
+		out_file << queries[i] << endl;
+		//cerr << queries[i].find("Data\\20_newsgroups\\" + cat[-1 - i]) << endl;
 	}
+	out_file.close();
 
-	fclose(file);
+	cat.save(CATEGORY_path);
+}
 
-	for (int i = 0; i < number_of_documents; i++)
-		deno[i] = sqrt(deno[i]);
+void init_list_files() {
 
-	vector < pair <double, int> > ret;
-	for (int i = 0; i < number_of_documents; i++)
-		ret.push_back({ nume[i], doc_uid[i] });
-	sort(ret.rbegin(), ret.rend());
+	auto clusters = get_list_directory();
+	auto files = get_list_files(clusters);
+	shuffle_list_files(files);
+	init_queries(files);
+	// Save list files
+	ofstream out_file(LISTFILES_path);
+	for (int i = 0; i < files.size(); i++)
+		out_file << files[i] << endl;
+	out_file.close();
+}
+
+vector <string> load_list_files() {
+	vector <string> ret;
+
+	ifstream in_file(LISTFILES_path);
+	for (string file; in_file >> file;) 
+		ret.push_back(file);
+	in_file.close();
 
 	return ret;
 }
 
-vector < pair <double, int> > query(vector <string> terms) {
+vector <string> load_queries() {
+	vector <string> ret;
 
-	memset(nume, 0, sizeof nume);
-	memset(deno, 0, sizeof deno);
+	ifstream in_file(QUERIES_path);
+	for (string file; in_file >> file;)
+		ret.push_back(file);
+	in_file.close();
 
-	// Load Query
-	int freq[maximum_of_terms];
-	memset(freq, 0, sizeof freq);
-
-	for (string term : terms) {
-		auto s_terms = split_tokens(lower_case(term));
-		for (auto s_term: s_terms) {
-			if (s_term.length() == 0) continue;
-			if (stop_words.find(s_term) == stop_words.end()) 
-				if (dictionary.count(s_term)) 
-					freq[dictionary[s_term]]++;
-		}
-	}	
-
-	vector<double> q_tfidf(number_of_terms, 0);
-	for (int i = 0; i < number_of_terms; i++) {
-		double tf = 0;
-		if (freq[i] > 0) tf = 1 + log(freq[i]);
-		q_tfidf[i] = tf * idf[i];
-	}
-
-	// Load Docs
-	FILE *file = fopen(INDEX_path, "rb");
-	for (Index index; fread(&index, sizeof(Index), 1, file); ) {
-		double tf = 0;
-		if (index.freq > 0) tf = 1 + log(index.freq);
-
-		nume[doc_id[index.doc_id]] += tf * idf[index.term_id] * q_tfidf[index.term_id];
-		deno[doc_id[index.doc_id]] += sqr(tf * idf[index.term_id]);
-	}
-
-	fclose(file);
-
-	for (int i = 0; i < number_of_documents; i++)
-		deno[i] = sqrt(deno[i]);
-
-	vector < pair <double, int> > ret;
-	for (int i = 0; i < number_of_documents; i++) 
-		ret.push_back({nume[i], doc_uid[i]});
-	sort(ret.rbegin(), ret.rend());
-
-	//return feedback_rerank(ret, q_tfidf, freq);
-	return local_analysis_rerank(ret, q_tfidf, freq);
-	//return global_analysis_rerank(ret, q_tfidf, freq);
-	//return ret;
-} 
+	return ret;
+}
 
 void proc_all_queries(string query_path, string groundtruth_path) {
 	int number_of_queries = 0;
@@ -435,6 +226,25 @@ void proc_all_queries(string query_path, string groundtruth_path) {
 	fclose(file);
 }
 
+void verify_list_files(vector <string> files, vector <string> queries) {
+	category cat(CATEGORY_path);
+
+	for (int i = 0; i < files.size(); i++) {
+		auto cate = cat[i];
+		if (files[i].find(string(TWENTYGRPS_directory) + "\\" + cate) == -1) {
+			cout << "FAIL" << endl;
+			return;
+		}
+	}
+	for (int i = 0; i < queries.size(); i++) {
+		auto cate = cat[-1 - i];
+		if (queries[i].find(string(TWENTYGRPS_directory) + "\\" + cate) == -1) {
+			cout << "FAIL" << endl;
+			return;
+		}
+	}
+}
+
 int main() {
 
 	long long startTime = clock();
@@ -443,12 +253,18 @@ int main() {
 	init_stop_words();
 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
+	cerr << "Parsing list files";
+	init_list_files();
+	auto files = load_list_files();
+	auto queries = load_queries();
+	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
+
 	cerr << "Parsing RAW file";
-	//parse_to_RAW_file({"Data\\t9.filtering\\ohsu-trec\\trec9-train\\ohsumed.87"}, "Data\\RAW.bin");
+	parse_to_RAW_file(files, RAW_path);
 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
 	cerr << "Saving dictionary file";
-	//init_dictionary_file();
+	init_dictionary_file();
 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
 	cerr << "Loading dictionary file";
@@ -456,7 +272,7 @@ int main() {
 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
 	cerr << "Building inverted index";
-	//bsbi.index_construction();
+	bsbi.index_construction();
 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
 	cerr << "Loading terms' offset";
@@ -467,21 +283,39 @@ int main() {
 	calc_term_idf();
 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
-	cerr << "Answer oshu queries\n";
-	//Oshu
-	proc_all_queries("Data\\t9.filtering\\ohsu-trec\\trec9-train\\query.ohsu.1-63", 
-					 "Data\\t9.filtering\\ohsu-trec\\trec9-train\\qrels.ohsu.batch.87");
+	cerr << "Verifying list files";
+	verify_list_files(files, queries);
 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
+
+	category cat(CATEGORY_path);
+	cerr << "Classifying" << endl;
+	double AP = 0;
+	for (int i = 0; i < queries.size(); i++) {
+		string predict = naive_bayes::classify(read_file(queries[i]));
+		bool result = predict == cat[-1 - i];
+		cout << "	" << queries[i] << " " << predict << " " << (result ? "TRUE" : "FALSE");
+		cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
+
+		if (result)
+			AP += 1.0 / queries.size();
+	}
+	cout << fixed << AP << endl;
+
+	//cerr << "Answer oshu queries\n";
+	////Oshu
+	//proc_all_queries("Data\\t9.filtering\\ohsu-trec\\trec9-train\\query.ohsu.1-63", 
+	//				 "Data\\t9.filtering\\ohsu-trec\\trec9-train\\qrels.ohsu.batch.87");
+	//cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
 	return 0;
 
-	cerr << "Answer mesh queries\n";
-	//MeSH
-	/*proc_all_queries("Data\\t9.filtering\\ohsu-trec\\trec9-train\\query.mesh.1-4904",
-					 "Data\\t9.filtering\\ohsu-trec\\trec9-train\\qrels.mesh.batch.87");*/
-	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
+	//cerr << "Answer mesh queries\n";
+	////MeSH
+	///*proc_all_queries("Data\\t9.filtering\\ohsu-trec\\trec9-train\\query.mesh.1-4904",
+	//				 "Data\\t9.filtering\\ohsu-trec\\trec9-train\\qrels.mesh.batch.87");*/
+	//cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
-	cerr << "Done\nPlease use matlab/octave to run plot_precision_recall and plot_f_measure" << endl;
+	//cerr << "Done\nPlease use matlab/octave to run plot_precision_recall and plot_f_measure" << endl;
 
 	return 0;
 

@@ -25,11 +25,12 @@ vector <string> split_tokens(string s) {
 	vector <string> ret;
 	string cur = "";
 	for (int i = 0; i < s.length(); i++)
-		if (!isalpha(s[i])) {
+		if (s[i] <= 0 || !isalpha(s[i])) {
 			if (cur.length() > 1) 
 				ret.push_back(lower_case(cur));
 			cur = "";
-		} else 
+		} 
+		else 
 			cur = cur + s[i];
 	if (!cur.empty())
 		ret.push_back(lower_case(cur));

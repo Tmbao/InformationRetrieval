@@ -1,61 +1,70 @@
-﻿Build started 4/2/2015 1:35:51 AM.
+﻿Build started 4/5/2015 8:26:32 PM.
      1>Project "C:\Users\MinhBao\Documents\GitHub\CS419\IR-hw\IR-hw\IR-hw.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
      1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\string_processing.h(7): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\string_processing.h(27): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\string_processing.h(41): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\string_processing.h(46): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\string_processing.h(42): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\string_processing.h(47): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\stop_words.h(9): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
      1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\stop_words.h(12): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
      1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(15): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(20): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(21): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(25): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(25): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(27): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(28): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(32): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(68): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(46): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(81): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(50): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(53): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(72): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(86): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(90): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(93): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(97): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(115): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(127): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(150): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(77): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(74): warning C4101: 'c_term' : unreferenced local variable
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(115): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(155): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(128): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(159): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(133): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(170): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(137): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(175): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(140): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(179): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(144): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(184): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(190): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(162): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(174): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(197): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(202): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(206): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(196): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(217): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(202): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(222): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(208): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(226): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(214): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(231): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(237): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(243): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(249): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(255): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\document_initialize.h(261): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
      1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query_building.h(22): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
@@ -82,67 +91,76 @@
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
      1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\SPIMI_index_construction.h(80): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>main.cpp(23): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(15): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>main.cpp(50): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(59): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(41): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(50): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>main.cpp(69): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(99): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(105): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(60): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(90): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(96): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>main.cpp(113): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(115): warning C4018: '>' : signed/unsigned mismatch
-     1>main.cpp(118): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(133): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(134): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(135): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(188): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>main.cpp(197): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(104): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(106): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(109): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(124): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(125): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(126): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(179): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(188): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>main.cpp(205): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(207): warning C4018: '>' : signed/unsigned mismatch
-     1>main.cpp(210): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(226): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(227): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(228): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(249): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(252): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(263): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(196): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(198): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(201): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(217): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(218): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(219): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(240): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(243): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(254): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>main.cpp(312): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\query.h(304): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>main.cpp(343): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\classifier.h(19): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\minhbao\documents\github\cs419\ir-hw\ir-hw\classifier.h(44): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>main.cpp(344): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(59): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>main.cpp(84): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(101): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(134): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>main.cpp(349): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(135): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+     1>main.cpp(140): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>main.cpp(356): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(147): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>main.cpp(361): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(152): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>main.cpp(368): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(159): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>main.cpp(369): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(160): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>main.cpp(370): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(161): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>main.cpp(374): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(165): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>main.cpp(377): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(381): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(168): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(172): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>main.cpp(385): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(389): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(176): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(180): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
-     1>main.cpp(401): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(192): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>main.cpp(402): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(193): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>main.cpp(405): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(433): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(196): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(224): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+     1>main.cpp(232): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(239): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(293): warning C4018: '<' : signed/unsigned mismatch
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\MinhBao\Documents\GitHub\CS419\IR-hw\Release\IR-hw.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\MinhBao\Documents\GitHub\CS419\IR-hw\Release\IR-hw.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\MinhBao\Documents\GitHub\CS419\IR-hw\Release\IR-hw.lib" /MACHINE:X86 /SAFESEH Release\main.obj
          Generating code
@@ -152,4 +170,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.60
+Time Elapsed 00:00:04.80
