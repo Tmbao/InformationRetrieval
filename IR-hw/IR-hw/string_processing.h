@@ -21,8 +21,8 @@ string to_string(int n) {
 	return ret;
 }
 
-vector <string> split_tokens(string s) {
-	vector <string> ret;
+vector<string> split_tokens(string s) {
+	vector<string> ret;
 	string cur = "";
 	for (int i = 0; i < s.length(); i++)
 		if (s[i] <= 0 || !isalpha(s[i])) {
@@ -37,12 +37,12 @@ vector <string> split_tokens(string s) {
 	return ret;
 }
 
-vector <string> split_tokens(string s, string delimiters) {
+vector<string> split_tokens(string s, string delimiters) {
 	set <char> delims;
 	for (int i = 0; i < delimiters.size(); i++)
 		delims.insert(delimiters[i]);
 
-	vector <string> ret;
+	vector<string> ret;
 	string cur = "";
 	for (int i = 0; i < s.length(); i++)
 		if (delims.find(s[i]) != delims.end()) {

@@ -7,7 +7,7 @@ class BSBI {
 
 private:
 
-	priority_queue < pair <ID, int>, vector < pair <ID, int> >, greater < pair <ID, int> > > q;
+	priority_queue < pair <ID, int>, vector< pair <ID, int>>, greater < pair <ID, int>> > q;
 
 	pair <FILE *, int> *partitions;
 

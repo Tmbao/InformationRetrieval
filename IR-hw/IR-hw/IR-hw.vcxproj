@@ -12,16 +12,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BSBI_index_construction.h" />
     <ClInclude Include="category.h" />
     <ClInclude Include="classifier.h" />
+    <ClInclude Include="clustering.h" />
     <ClInclude Include="configure.h" />
     <ClInclude Include="dirent.h" />
+    <ClInclude Include="fetching_files.h" />
+    <ClInclude Include="pugiconfig.hpp" />
+    <ClInclude Include="pugixml.hpp" />
     <ClInclude Include="query.h" />
     <ClInclude Include="query_building.h" />
-    <ClInclude Include="document_initialize.h" />
+    <ClInclude Include="document.h" />
     <ClInclude Include="index.h" />
     <ClInclude Include="SPIMI_index_construction.h" />
     <ClInclude Include="stop_words.h" />

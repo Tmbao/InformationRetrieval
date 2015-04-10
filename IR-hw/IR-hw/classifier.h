@@ -2,14 +2,14 @@
 #include "configure.h"
 #include "category.h"
 #include "query.h"
-#include "document_initialize.h"
-using namespace twenty_newsgroups;
+#include "document.h"
+using namespace reuters21578;
 
 namespace k_nearest_neighbor {
 
 	category cat;
 
-	string classify(vector <string> terms, int k = 10) {
+	string classify(vector<string> terms, int k = 10) {
 		if (cat.size() == 0) 
 			cat = category(CATEGORY_path);
 		
@@ -34,7 +34,7 @@ namespace k_nearest_neighbor {
 
 namespace naive_bayes {
 	category cat;
-	map < string,  map <int, int> > c_freq;
+	map < string,  map <int, int>> c_freq;
 	map <string, int> c_terms;
 	int n_terms;
 
@@ -54,7 +54,7 @@ namespace naive_bayes {
 		is_initialized = true;
 	}
 
-	string classify(vector <string> terms) {
+	string classify(vector<string> terms) {
 		if (cat.size() == 0)
 			cat = category(CATEGORY_path);
 		if (!is_initialized)

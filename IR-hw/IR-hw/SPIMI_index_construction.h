@@ -7,10 +7,10 @@ class SPIMI {
 
 private:
 
-	priority_queue < pair <ID, int>, vector < pair <ID, int> >, greater < pair <ID, int> > > q;
+	priority_queue < pair <ID, int>, vector< pair <ID, int>>, greater < pair <ID, int>> > q;
 
-	vector <int> posting_list[maximum_of_terms];
-	vector <int> record_position;
+	vector<int> posting_list[maximum_of_terms];
+	vector<int> record_position;
 
 	pair <FILE*, int> *blocks;
 

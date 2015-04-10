@@ -10,7 +10,7 @@ namespace twenty_newsgroups {
 
 	void build_query(string class_name, string class_path) {
 		map <string, int> dictionary;
-		vector < pair <int, string> > freq;
+		vector< pair <int, string>> freq;
 		char c_term[2048];
 
 		DIR *dir = opendir(class_path.c_str());
@@ -28,7 +28,7 @@ namespace twenty_newsgroups {
 				while (fscanf(file, "%s", c_term) != EOF) {
 					string term = c_term;
 
-					vector <string> s_terms = split_tokens(lower_case(term));
+					vector<string> s_terms = split_tokens(lower_case(term));
 					for (auto s_term : s_terms) {
 						if (s_term.length() == 0) continue;
 

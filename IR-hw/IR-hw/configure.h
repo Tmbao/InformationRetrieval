@@ -18,6 +18,10 @@
 #include <string>
 using namespace std;
 
+#include "pugixml.hpp"
+#include "pugiconfig.hpp"
+using namespace pugi;
+
 #define sqr(x) (x) * (x)
 
 #define SW_path "Data\\stopwords_en.txt"
@@ -29,8 +33,10 @@ using namespace std;
 #define CATEGORY_path "Data\\CATEGORY.txt"
 #define LISTFILES_path "Data\\LISTFILES.txt"
 
-#define TWENTYGRPS_directory "Data\\20_newsgroups"
 #define TREC_directory "Data\\t9.filtering\\ohsu-trec"
+#define REUTERS_directory "Data\\reuters21578"
+#define TWENTYGRPS_directory "Data\\20_newsgroups"
+
 
 const int maximum_of_terms = 400000;
-const double eps = 1e-6;
+const double eps = 1e-8;

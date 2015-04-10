@@ -1,134 +1,27 @@
-#pragma comment(linker, "/STACK:1073741824")
+//#pragma comment(linker, "/STACK:1073741824")
 
 #include "configure.h"
 #include "index.h"
 #include "stop_words.h"
-#include "document_initialize.h"
+#include "document.h"
 #include "query_building.h"
 #include "BSBI_index_construction.h"
 #include "SPIMI_index_construction.h"
 #include "query.h"
 #include "category.h"
 #include "classifier.h"
+#include "fetching_files.h"
+#include "clustering.h"
 
-using namespace twenty_newsgroups;
+using namespace reuters21578;
 
 BSBI bsbi;
 SPIMI spimi;
 
-vector <string> get_list_directory() {
-	vector <string> ret;
-
-	DIR *pdir = opendir(TWENTYGRPS_directory);
-	dirent *entry;
-	while (entry = readdir(pdir)) {
-		if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0 && strcmp(entry->d_name, "desktop.ini") != 0)
-			ret.push_back(entry->d_name);
-	}
-	closedir(pdir);
-	return ret;
-}
-
-vector <string> get_list_files(vector <string> directories) {
-	category cat;
-	vector <string> ret;
-
-	for (auto directory : directories) {
-		string dir = string(TWENTYGRPS_directory) + "\\" + directory;
-		DIR *pdir = opendir(dir.c_str());
-
-		dirent *entry;
-		while (entry = readdir(pdir)) {
-			if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0 && strcmp(entry->d_name, "desktop.ini") != 0) {
-				cat[ret.size()] = directory;
-				ret.push_back(dir + "\\" + string(entry->d_name));
-			}
-		}
-
-		closedir(pdir);
-	}
-
-	cat.save(CATEGORY_path);
-
-	return ret;
-}
-
-void shuffle_list_files(vector <string> &files, int n_shuffle = 10000) {
-	category cat(CATEGORY_path);
-
-	srand(time(NULL));
-	for (int step = 0; step < n_shuffle; step++) {
-		int i = rand() % files.size();
-		int j = rand() % files.size();
-
-		swap(cat[i], cat[j]);
-		swap(files[i], files[j]);
-	}
-
-	cat.save(CATEGORY_path);
-}
-
-void init_queries(vector <string> &files, int n_queries = 5000) {
-	category cat(CATEGORY_path);
-
-	vector <string> queries;
-	for (int i = 1; i <= n_queries; i++) {
-		auto temp = cat[files.size() - 1];
-		queries.push_back(files.back());
-		cat.erase(cat.find(files.size() - 1));
-		cat[-i] = temp;
-		files.pop_back();
-	}
-
-	ofstream out_file(QUERIES_path);
-	for (int i = 0; i < queries.size(); i++) {
-		out_file << queries[i] << endl;
-		//cerr << queries[i].find("Data\\20_newsgroups\\" + cat[-1 - i]) << endl;
-	}
-	out_file.close();
-
-	cat.save(CATEGORY_path);
-}
-
-void init_list_files() {
-
-	auto clusters = get_list_directory();
-	auto files = get_list_files(clusters);
-	shuffle_list_files(files);
-	init_queries(files);
-	// Save list files
-	ofstream out_file(LISTFILES_path);
-	for (int i = 0; i < files.size(); i++)
-		out_file << files[i] << endl;
-	out_file.close();
-}
-
-vector <string> load_list_files() {
-	vector <string> ret;
-
-	ifstream in_file(LISTFILES_path);
-	for (string file; in_file >> file;) 
-		ret.push_back(file);
-	in_file.close();
-
-	return ret;
-}
-
-vector <string> load_queries() {
-	vector <string> ret;
-
-	ifstream in_file(QUERIES_path);
-	for (string file; in_file >> file;)
-		ret.push_back(file);
-	in_file.close();
-
-	return ret;
-}
-
 void proc_all_queries(string query_path, string groundtruth_path) {
 	int number_of_queries = 0;
 	map <string, int> query_id;
-	vector < set <int> > relevants;
+	vector< set <int>> relevants;
 
 	FILE *file_query, *file_groundtruth;
 	file_query = fopen(query_path.c_str(), "r");
@@ -152,7 +45,7 @@ void proc_all_queries(string query_path, string groundtruth_path) {
 	for (int i = 0; fscanf(file_query, "%s", token) != EOF; i++) {
 		cerr << "    Processing #" << i << " query" << endl;
 
-		vector <string> terms;
+		vector<string> terms;
 		string query_name;
 
 		// Read number
@@ -226,7 +119,7 @@ void proc_all_queries(string query_path, string groundtruth_path) {
 	fclose(file);
 }
 
-void verify_list_files(vector <string> files, vector <string> queries) {
+void verify_list_files(vector<string> files, vector<string> queries) {
 	category cat(CATEGORY_path);
 
 	for (int i = 0; i < files.size(); i++) {
@@ -254,9 +147,9 @@ int main() {
 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
 	cerr << "Parsing list files";
-	init_list_files();
+	//init_list_files();
 	auto files = load_list_files();
-	auto queries = load_queries();
+	//auto queries = load_queries();
 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
 	cerr << "Parsing RAW file";
@@ -284,22 +177,29 @@ int main() {
 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
 	cerr << "Verifying list files";
-	verify_list_files(files, queries);
+	//verify_list_files(files, queries);
 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
-	category cat(CATEGORY_path);
-	cerr << "Classifying" << endl;
-	double AP = 0;
-	for (int i = 0; i < queries.size(); i++) {
-		string predict = naive_bayes::classify(read_file(queries[i]));
-		bool result = predict == cat[-1 - i];
-		cout << "	" << queries[i] << " " << predict << " " << (result ? "TRUE" : "FALSE");
-		cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
+	auto ret = HAC::cluster(100);
 
-		if (result)
-			AP += 1.0 / queries.size();
-	}
-	cout << fixed << AP << endl;
+	freopen("Data\\Log.txt", "r", stdout);
+	
+	for (int i = 0; i < ret.size(); i++)
+		cout << i << " " << ret[i] << endl;
+
+	// category cat(CATEGORY_path);
+	// cerr << "Classifying" << endl;
+	// double AP = 0;
+	// for (int i = 0; i < queries.size(); i++) {
+	// 	string predict = naive_bayes::classify(read_file(queries[i]));
+	// 	bool result = predict == cat[-1 - i];
+	// 	cout << "	" << queries[i] << " " << predict << " " << (result ? "TRUE" : "FALSE");
+	// 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
+
+	// 	if (result)
+	// 		AP += 1.0 / queries.size();
+	// }
+	// cout << fixed << AP << endl;
 
 	//cerr << "Answer oshu queries\n";
 	////Oshu
@@ -318,5 +218,4 @@ int main() {
 	//cerr << "Done\nPlease use matlab/octave to run plot_precision_recall and plot_f_measure" << endl;
 
 	return 0;
-
 }

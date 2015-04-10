@@ -2,8 +2,8 @@
 
 #include "configure.h"
 #include "index.h"
-#include "document_initialize.h"
-using namespace twenty_newsgroups;
+#include "document.h"
+using namespace reuters21578;
 
 int offset[maximum_of_terms];
 double idf[maximum_of_terms];
@@ -35,8 +35,8 @@ void calc_term_idf() {
 
 double nume[maximum_of_terms], deno[maximum_of_terms], distance[maximum_of_terms];
 
-vector < pair <double, int> > feedback_rerank(vector < pair <double, int> > rank_list, vector <double> q_tfidf, int q_freq[maximum_of_terms], int n_docs = 5, double alpha = 0.6, double beta = 0.1, double gamma = 0.1) {
-	vector <int> rank(rank_list.size());
+vector< pair <double, int>> feedback_rerank(vector< pair <double, int>> rank_list, vector<double> q_tfidf, int q_freq[maximum_of_terms], int n_docs = 5, double alpha = 0.6, double beta = 0.1, double gamma = 0.1) {
+	vector<int> rank(rank_list.size());
 
 	for (int i = 0; i < rank_list.size(); i++)
 		rank[doc_id[rank_list[i].second]] = i;
@@ -44,7 +44,7 @@ vector < pair <double, int> > feedback_rerank(vector < pair <double, int> > rank
 	memset(nume, 0, sizeof nume);
 	memset(deno, 0, sizeof deno);
 
-	vector <double> delta_tfidf(q_tfidf.size());
+	vector<double> delta_tfidf(q_tfidf.size());
 
 	// Re-calculate query tfidf
 	FILE *file = fopen(INDEX_path, "rb");
@@ -74,7 +74,7 @@ vector < pair <double, int> > feedback_rerank(vector < pair <double, int> > rank
 	for (int i = 0; i < number_of_documents; i++)
 		deno[i] = sqrt(deno[i]);
 
-	vector < pair <double, int> > ret;
+	vector< pair <double, int>> ret;
 	for (int i = 0; i < number_of_documents; i++)
 		ret.push_back({ nume[i], doc_uid[i] });
 	sort(ret.rbegin(), ret.rend());
@@ -82,15 +82,15 @@ vector < pair <double, int> > feedback_rerank(vector < pair <double, int> > rank
 	return ret;
 }
 
-vector < pair <double, int> > local_analysis_rerank(vector < pair <double, int> > rank_list, vector <double> q_tfidf, int q_freq[maximum_of_terms], int n_docs = 5, int terms_p_doc = 100) {
+vector< pair <double, int>> local_analysis_rerank(vector< pair <double, int>> rank_list, vector<double> q_tfidf, int q_freq[maximum_of_terms], int n_docs = 5, int terms_p_doc = 100) {
 	map <int, int> local_id;
-	vector <int> original_id;
-	vector <int> rank(rank_list.size());
+	vector<int> original_id;
+	vector<int> rank(rank_list.size());
 
 	for (int i = 0; i < rank_list.size(); i++)
 		rank[doc_id[rank_list[i].second]] = i;
 
-	vector < vector < pair <double, int> > > freq(rank_list.size());
+	vector< vector< pair <double, int>> > freq(rank_list.size());
 
 	// Calculate frequency
 	FILE *file = fopen(INDEX_path, "rb");
@@ -116,10 +116,10 @@ vector < pair <double, int> > local_analysis_rerank(vector < pair <double, int> 
 
 	// Calculate association matrix
 	int n_terms = original_id.size();
-	vector < vector <double> > c(n_terms), s(n_terms);
+	vector< vector<double>> c(n_terms), s(n_terms);
 	for (int i = 0; i < n_terms; i++) {
-		c[i] = vector <double>(n_terms, 0);
-		s[i] = vector <double>(n_terms, 0);
+		c[i] = vector<double>(n_terms, 0);
+		s[i] = vector<double>(n_terms, 0);
 	}
 	for (int i = 0; i < freq.size(); i++) {
 		for (int j = 0; j < freq[i].size(); j++) {
@@ -162,7 +162,7 @@ vector < pair <double, int> > local_analysis_rerank(vector < pair <double, int> 
 	for (int i = 0; i < number_of_documents; i++)
 		deno[i] = sqrt(deno[i]);
 
-	vector < pair <double, int> > ret;
+	vector< pair <double, int>> ret;
 	for (int i = 0; i < number_of_documents; i++)
 		ret.push_back({ nume[i], doc_uid[i] });
 	sort(ret.rbegin(), ret.rend());
@@ -172,17 +172,17 @@ vector < pair <double, int> > local_analysis_rerank(vector < pair <double, int> 
 
 bool is_intialize_global_analysis = false;
 map <int, int> gl_local_id;
-vector <int> gl_original_id;
-vector < vector <double> > gl_s;
+vector<int> gl_original_id;
+vector< vector<double>> gl_s;
 void global_analysis_initialize(int n_docs = 100, int terms_p_doc = 10) {
 
 	srand(time(NULL));
 
-	vector <bool> chosen_docs(number_of_documents, false);
+	vector<bool> chosen_docs(number_of_documents, false);
 	for (int i = 0; i <= n_docs; i++)
 		chosen_docs[rand() % chosen_docs.size()] = 1;
 
-	vector < vector < pair <double, int> > > freq(number_of_documents);
+	vector< vector< pair <double, int>> > freq(number_of_documents);
 
 	// Calculate frequency
 	FILE *file = fopen(INDEX_path, "rb");
@@ -208,11 +208,11 @@ void global_analysis_initialize(int n_docs = 100, int terms_p_doc = 10) {
 
 	// Calculate association matrix
 	int n_terms = gl_original_id.size();
-	vector < vector <double> > c(n_terms);
-	gl_s = vector < vector<double> >(n_terms);
+	vector< vector<double>> c(n_terms);
+	gl_s = vector< vector<double>>(n_terms);
 	for (int i = 0; i < n_terms; i++) {
-		c[i] = vector <double>(n_terms, 0);
-		gl_s[i] = vector <double>(n_terms, 0);
+		c[i] = vector<double>(n_terms, 0);
+		gl_s[i] = vector<double>(n_terms, 0);
 	}
 	for (int i = 0; i < freq.size(); i++) {
 		for (int j = 0; j < freq[i].size(); j++) {
@@ -230,7 +230,7 @@ void global_analysis_initialize(int n_docs = 100, int terms_p_doc = 10) {
 	}
 }
 
-vector < pair <double, int> > global_analysis_rerank(vector < pair <double, int> > rank_list, vector <double> q_tfidf, int q_freq[maximum_of_terms], int n_docs = 5, int terms_p_doc = 100) {
+vector< pair <double, int>> global_analysis_rerank(vector< pair <double, int>> rank_list, vector<double> q_tfidf, int q_freq[maximum_of_terms], int n_docs = 5, int terms_p_doc = 100) {
 
 	if (!is_intialize_global_analysis) {
 		global_analysis_initialize();
@@ -265,7 +265,7 @@ vector < pair <double, int> > global_analysis_rerank(vector < pair <double, int>
 	for (int i = 0; i < number_of_documents; i++)
 		deno[i] = sqrt(deno[i]);
 
-	vector < pair <double, int> > ret;
+	vector< pair <double, int>> ret;
 	for (int i = 0; i < number_of_documents; i++)
 		ret.push_back({ nume[i], doc_uid[i] });
 	sort(ret.rbegin(), ret.rend());
@@ -273,7 +273,7 @@ vector < pair <double, int> > global_analysis_rerank(vector < pair <double, int>
 	return ret;
 }
 
-vector < pair <double, int> > query(vector <string> terms,
+vector< pair <double, int>> query(vector<string> terms,
 									int rerank = 0 /* 0: No reranking, 1: Pseudo Feedback, 2: Local Analysis, 3: Global Analysis */) {
 
 	memset(nume, 0, sizeof nume);
@@ -315,7 +315,7 @@ vector < pair <double, int> > query(vector <string> terms,
 	for (int i = 0; i < number_of_documents; i++)
 		deno[i] = sqrt(deno[i]);
 
-	vector < pair <double, int> > ret;
+	vector< pair <double, int>> ret;
 	for (int i = 0; i < number_of_documents; i++)
 		ret.push_back({ nume[i], doc_uid[i] });
 	sort(ret.rbegin(), ret.rend());
