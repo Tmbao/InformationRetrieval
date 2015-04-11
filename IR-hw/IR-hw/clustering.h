@@ -5,15 +5,38 @@
 using namespace reuters21578;
 
 namespace HAC {
+
+	struct Tedge {
+		double similarity;
+		int i, j;
+		Tedge(double _similarity = 0, int _i = 0, int _j = 0) : similarity(_similarity), i(_i), j(_j) {}
+
+		friend bool operator < (const Tedge &a, const Tedge &b) {
+			if (abs(a.similarity - b.similarity) < eps)
+				return make_pair(a.i, a.j) < make_pair(b.i, b.j);
+			else
+				return a.similarity < b.similarity;
+		}
+	};
 	
 	set<int> list;
 	vector<int> count;
 	vector<int> dsu;
+
 	int DSU(int u) {
 		return dsu[u] == u ? u : dsu[u] = DSU(dsu[u]);
 	}
 
 	vector<vector<double>> tfidf;
+
+	void normalize(vector<double> &vec) {
+		double sum_sqr = 0;
+		for (int i = 0; i < vec.size(); i++)
+			sum_sqr += vec[i] * vec[i];
+		for (int i = 0; i < vec.size(); i++)
+			vec[i] /= sum_sqr;
+	}
+
 	void initialize() {
 		count.resize(number_of_documents);
 		dsu.resize(number_of_documents);
@@ -23,9 +46,7 @@ namespace HAC {
 			list.insert(i);
 		}
 
-		tfidf.resize(number_of_documents, vector<double>());
-		for (int i = 0; i < number_of_documents; i++)
-			tfidf[i].resize(number_of_terms, 0);
+		tfidf.resize(number_of_documents, vector<double>(number_of_terms, 0));
 
 		FILE *file = fopen(INDEX_path, "rb");
 
@@ -38,11 +59,14 @@ namespace HAC {
 		}
 
 		fclose(file);
+
+		for (int i = 0; i < number_of_documents; i++)
+			normalize(tfidf[i]);
 	}
 
-	set<tuple<double, int, int>> edge;
+	set<Tedge> edge;
 
-	double sim(int i, int j) {
+	double similarity(int i, int j, bool debug = false) {
 		double nume = 0;
 		double deno = 0;
 		for (int k = 0; k < number_of_terms; k++)
@@ -50,6 +74,25 @@ namespace HAC {
 		nume -= count[i] + count[j];
 		deno = (count[i] + count[j]) * (count[i] + count[j] - 1.0);
 		return nume / deno;
+	}
+
+	void remove(int i, int j) {
+		if (i > j) swap(i, j);
+		auto it = edge.lower_bound(Tedge(similarity(i, j) - eps, i, j));
+		if (it != edge.end() && it->i == i && it->j == j)
+			edge.erase(it);
+	}
+
+	void remove(int i) {
+		for (int j : list) 
+			remove(i, j);
+	}
+
+	void add(int i) {
+		for (int j : list) {
+			if (i >= j) continue;
+			edge.insert(Tedge(similarity(i, j), i, j));
+		}
 	}
 
 	void join(int i, int j) {
@@ -60,31 +103,15 @@ namespace HAC {
 		count[i] += count[j];
 		for (int k = 0; k < number_of_terms; k++)
 			tfidf[i][k] += tfidf[j][k];
+		normalize(tfidf[i]);
 
-		for (auto i : list) {
-			if (i == j) continue;
-
-			int u = i;
-			int v = j;
-			if (u > v) swap(u, v);
-
-			auto it = edge.lower_bound(make_tuple(sim(u, v) - eps, u, v));
-			if (it != edge.end() && get<1>(*it) == u && get<2>(*it) == v)
-				edge.erase(it);
-		}
+		remove(j);
+		remove(i);
 
 		tfidf[j].clear();
-
 		list.erase(j);
-		for (auto j : list) {
-			if (i == j) continue;
-			
-			int u = i;
-			int v = j;
-			if (u > v) swap(u, v);
 
-			edge.insert(make_tuple(sim(u, v), u, v));
-		}
+		add(i);
 	}
 
 	vector<int> cluster(int n_cluster = 20) {
@@ -93,19 +120,19 @@ namespace HAC {
 
 		edge.clear();
 		cerr << "	Initializing similarity ..." << endl;
-		for (auto i : list) {
-			cerr << "		(" << i << ", ... )" << endl;
-			for (auto j : list) {
-				if (i >= j) continue;
-				
-				edge.insert(make_tuple(sim(i, j), i, j));
-			}
+
+		vector <int> _list;
+		for (auto it = list.begin(); it != list.end(); it++)
+			_list.push_back(*it);
+		for (int i : _list) {
+			cerr << "		Intializing #" << i << endl;
+			add(i);
 		}
 
 		while (list.size() > n_cluster) {
-			cerr << "	Processing ... " << edge.size() << " cluster(s) remaining" << endl;
-			auto top = *edge.begin();
-			join(get<1>(top), get<2>(top));
+			cerr << "	Processing ... " << list.size() << " cluster(s) remaining" << endl;
+			Tedge top = *edge.rbegin();
+			join(top.i, top.j);
 		}
 
 		vector<int> ret;
@@ -114,7 +141,6 @@ namespace HAC {
 			int x = DSU(i);
 			if (id.count(x) == 0)
 				id[x] = id.size();
-
 			ret.push_back(id[x]);
 		}
 		return ret;

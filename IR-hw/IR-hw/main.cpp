@@ -143,7 +143,7 @@ int main() {
 	long long startTime = clock();
 
 	cerr << "Initializing Stop words";
-	init_stop_words();
+	//init_stop_words();
 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
 	cerr << "Parsing list files";
@@ -180,7 +180,9 @@ int main() {
 	//verify_list_files(files, queries);
 	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
+	cerr << "Clustering" << endl;
 	auto ret = HAC::cluster(100);
+	cerr << " - Done: " << double(clock() - startTime) / CLOCKS_PER_SEC << "s\n";
 
 	freopen("Data\\Log.txt", "r", stdout);
 	

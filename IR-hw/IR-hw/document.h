@@ -58,10 +58,13 @@ namespace reuters21578 {
 		fwrite(ids, sizeof(ID), n_ids, file);
 	}
 
-	void parse_to_RAW_file(const vector<string> &file_names, string raw_path, int lim_vocab = 5000) {
+	void parse_to_RAW_file(const vector<string> &file_names, string raw_path, int lim_vocab = 5000, int lim_doc = 3000) {
 		FILE *file_raw = fopen(raw_path.c_str(), "wb");
 
 		for (string file_name : file_names) {
+			if (number_of_documents == lim_doc)
+				break;
+
 			xml_document doc;
 			doc.load_file((string(REUTERS_directory) + "\\" + file_name).c_str());
 			for (xml_node node = doc.child("REUTERS"); node; node = node.next_sibling("REUTERS")) {
@@ -69,10 +72,11 @@ namespace reuters21578 {
 
 				string id = node.attribute("NEWID").value();
 				string title = node.first_element_by_path("TEXT/TITLE").first_child().value();
-				string body = node.first_element_by_path("TEXT/BODY").first_child().value();
-
 				write_all_terms(file_raw, atoi(id.c_str()) - 1, title, lim_vocab);
+				string body = node.first_element_by_path("TEXT/BODY").first_child().value();
 				write_all_terms(file_raw, atoi(id.c_str()) - 1, body, lim_vocab);
+				string text = node.first_element_by_path("TEXT").first_child().value();
+				write_all_terms(file_raw, atoi(id.c_str()) - 1, text, lim_vocab);
 			}
 		}
 
